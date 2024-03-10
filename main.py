@@ -233,26 +233,104 @@ actor_data = [
     ('Ryan', 'Gosling', 43, 'M'),
     ('Issa', 'Rae', 39, 'F'),
     ('Kate', 'McKinnon', 40, 'F'),
+    #mario
+    ('Chris', 'Pratt', 44, "M"),
+    ('Anya','Taylor-Joy', 27, 'F'),
+    ('Charlie', 'Day', 48, 'M'),
+    ('Jack', 'Black', 54, 'M'),
+    # oppenheimer
+    ('Cillian', "Murphy", 47, 'M'),
+    ("Emily", "Blunt", 41, 'F'),
+    ('Matt', 'Damon', 53, "M"),
+    ('Robert', "Downey Jr.", 58, 'M'),
+    # gotg
+    ('Chukwudi', 'Iwuji', 48, 'M'),
+    ('Bradley', 'Cooper', 49, 'M'),
+    ('Pom', 'Klementieff', 37, 'F'),
+    # fast X
+    ('Vin', 'Diesel', 56, "M"),
+    ("Michelle", 'Rodriguez', 45, 'F'),
+    ('Jason', 'Statham', 56, 'M'),
+    ('Jardana', 'Brewster', 43, 'F')
 ]
+
+for actor in actor_data:
+    cur.execute("INSERT INTO Actor (fname ,lname, age, sex) VALUES (?,?,?,?);", actor)
+
 
 producer_data = [
     ('Robbie', 'Brenner', None ,'M'),
     ('David', 'Heyman', None, 'M'),
     ('Margot', 'Robbie', 33, 'F'),
+    ('Christopher', 'Meledandri', 64, 'M'),
+    ('Shigeru', 'Miyamoto', 71, 'M'),
+    # oppenheimer
+    ('Christopher', 'Nolan', 53, "M"),
+    ('Charles', 'Roven', 74, 'M'),
+    ('Emma', 'Thomas', 52, 'F'),
+    # gotg
+    ('Kevin', 'Feige', 50, 'M'),
+    # Fast X
+    ('Vin', 'Diesel', 56, 'M'),
+    ('Jeff', 'Kirschenbaum', 56, 'M'),
+    ('Justin', 'Lin', 52, 'M'),
+    ('Neal', 'H. Moritz', 64, 'M'),
+    ('Samantha', 'Vincent', None, 'F')
 ]
+
+for producer in producer_data:
+    cur.execute("INSERT INTO Actor (fname ,lname, age, sex) VALUES (?,?,?,?);", producer)
+
 
 cast_data = [
     (1, 1, 1, 'Barbie'),
     (1, 2, 1, 'Ken'),
     (1, 3, 0, 'Barbie'),
-    (1, 4, 0, 'Barbie')
+    (1, 4, 0, 'Barbie'),
+    (2, 5, 1, 'Mario'),
+    (2, 6, 1, 'Princess Peach'),
+    (2, 7, 1, 'Luigi'),
+    (2, 8, 1, 'Bowser'),
+    # oppenheimer
+    (3, 9, 1, 'J. Robert Oppenheimer'),
+    (3, 10, 1, 'Kitty Oppenheimer'),
+    (3, 11, 1, 'Leslie Groves'),
+    (3, 12, 1, 'Lewis Strauss'),
+    # gotg
+    (4, 5, 1, 'Star-Lord'),
+    (4, 13, 0, 'The High Evolutionary'),
+    (4, 14, 1, "Rocket"),
+    (4, 15, 1, 'Mantis'),
+    # fast X
+    (5, 16, 1, 'Dominic Toretto'),
+    (5, 17, 1, 'Michelle Rodriguez'),
+    (5, 18, 1, 'Shaw'),
+    (5, 19, 0, 'Mia')
 ]
 
-producer_data = [
+for act in cast_data:
+    cur.execute("INSERT INTO Cast (movie_id ,actor_id, is_star, role) VALUES (?,?,?,?);", act)
+
+producing_credits = [
     (1, 1),
     (1, 2),
     (1, 3),
+    (2, 4),
+    (2, 5),
+    (3, 6),
+    (3, 7),
+    (3, 8),
+    (4, 9),
+    (5, 10),
+    (5, 11),
+    (5, 12),
+    (5, 13),
+    (5, 14),
 ]
+
+for prod in producing_credits:
+    cur.execute("INSERT INTO ProducingCredit (movie_id ,producer_id) VALUES (?,?);", prod)
+
 
 movie_data = [
     ('Barbie', '2023-07-19', 145000000, 1, 1, 1),
