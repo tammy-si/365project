@@ -279,7 +279,7 @@ producer_data = [
 ]
 
 for producer in producer_data:
-    cur.execute("INSERT INTO Actor (fname ,lname, age, sex) VALUES (?,?,?,?);", producer)
+    cur.execute("INSERT INTO Producer (fname ,lname, age, sex) VALUES (?,?,?,?);", producer)
 
 
 cast_data = [
