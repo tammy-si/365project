@@ -4,24 +4,36 @@ conn = sqlite3.connect("boxoffice.db")
 
 cur = conn.cursor()
 
-cur.execute('''CREATE TABLE Actor (
-	actor_id INTEGER NOT NULL,
+# maybe make a people table?
+cur.execute('''CREATE TABLE People (
+    person_id INTEGER,
     fname VARCHAR(40),
     lname VARCHAR(40),
     age INTEGER,
     sex CHAR,
+    PRIMARY KEY (person_id)
+);''')
+conn.commit()
+
+
+cur.execute('''CREATE TABLE Actor (
+	actor_id INTEGER NOT NULL,
+    roles_played INT,
+    acting_awards INT,
+    person_id INT,
     PRIMARY KEY (actor_id)
+    FOREIGN KEY (person_id) REFERENCES People(person_id)
 );''')
 
 conn.commit()
 
 cur.execute('''CREATE TABLE Director (
 	director_id INTEGER NOT NULL,
-	fname VARCHAR(40),
-    lname VARCHAR(40),
-    age INTEGER,
-    sex CHAR,
+    movies_directed INT,
+    directing_awards INT,
+    person_id INT,
     PRIMARY KEY (director_id)
+    FOREIGN KEY (person_id) REFERENCES People(person_id)
 );''')
 
 conn.commit()
@@ -36,15 +48,14 @@ conn.commit()
 
 cur.execute('''CREATE TABLE Producer (
 	producer_id INTEGER NOT NULL,
-	fname VARCHAR(40),
-    lname VARCHAR(40),
-    age INTEGER,
-    sex CHAR,
+    movies_produced INT,
+    person_id INT,
     PRIMARY KEY (producer_id)
+    FOREIGN KEY (person_id) REFERENCES People(person_id)
 );''')
 conn.commit()
 
-cur.execute('''CREATE TABLE Cast (
+cur.execute('''CREATE TABLE MovieCast (
     movie_id INTEGER NOT NULL,
 	actor_id INTEGER NOT NULL,
     is_star BIT,
@@ -166,6 +177,7 @@ studio_data = [
     ("Searchlight Pictures"),
     ("Screen Gems")
 ]
+
 for studio_entry in studio_data:
     cur.execute("INSERT INTO Studio (studio_name) VALUES (?);", (studio_entry,))
 
@@ -188,6 +200,7 @@ director_data = [
     ('James', 'Wan', 47, 'M'),
     ('Ben', 'Wheatley', 51, 'M'),
     ('James', 'Mangold', 60, 'M'),
+    ('Francis', 'Lawrence', 52, 'M'),
     ('Emma', 'Tammi', 54, 'F'),
     ('Benjamin', "Renner", 40, 'M'),
     ('Micheal', 'B. Jordan', 37, 'M'),
@@ -223,8 +236,11 @@ director_data = [
     ('Gareth', 'Edwards', 48, 'M')
 ]
 
-for director in director_data:
-    cur.execute("INSERT INTO Director (	fname, lname, age, sex) VALUES (?,?,?,?);", director)
+for people in director_data:
+    cur.execute("INSERT INTO People (fname, lname, age, sex) VALUES (?,?,?,?);", people)
+
+for i in range(1, len(director_data) + 1):
+    cur.execute("INSERT INTO Director (movies_directed, directing_awards, person_id) VALUES (?, ?, ?)", (1, 0, i))
 
 conn.commit()
 
@@ -255,23 +271,29 @@ actor_data = [
 ]
 
 for actor in actor_data:
-    cur.execute("INSERT INTO Actor (fname ,lname, age, sex) VALUES (?,?,?,?);", actor)
+    cur.execute("INSERT INTO People (fname ,lname, age, sex) VALUES (?,?,?,?);", actor)
+
+for i in range(1, len(actor_data) + 1):
+    if i == 5:
+        cur.execute("INSERT INTO Actor (roles_played, acting_awards, person_id) VALUES (?,?,?);", (2, 0, 49 + i))
+    else:
+        cur.execute("INSERT INTO Actor (roles_played, acting_awards, person_id) VALUES (?,?,?);", (1, 0, 49 + i))
 
 
 producer_data = [
     ('Robbie', 'Brenner', None ,'M'),
     ('David', 'Heyman', None, 'M'),
-    ('Margot', 'Robbie', 33, 'F'),
+    # ('Margot', 'Robbie', 33, 'F'),
     ('Christopher', 'Meledandri', 64, 'M'),
     ('Shigeru', 'Miyamoto', 71, 'M'),
     # oppenheimer
-    ('Christopher', 'Nolan', 53, "M"),
+    # ('Christopher', 'Nolan', 53, "M"),
     ('Charles', 'Roven', 74, 'M'),
     ('Emma', 'Thomas', 52, 'F'),
     # gotg
     ('Kevin', 'Feige', 50, 'M'),
     # Fast X
-    ('Vin', 'Diesel', 56, 'M'),
+    # ('Vin', 'Diesel', 56, 'M'),
     ('Jeff', 'Kirschenbaum', 56, 'M'),
     ('Justin', 'Lin', 52, 'M'),
     ('Neal', 'H. Moritz', 64, 'M'),
@@ -279,7 +301,23 @@ producer_data = [
 ]
 
 for producer in producer_data:
-    cur.execute("INSERT INTO Producer (fname ,lname, age, sex) VALUES (?,?,?,?);", producer)
+    cur.execute("INSERT INTO People (fname ,lname, age, sex) VALUES (?,?,?,?);", producer)
+
+# putting Producer stuff
+cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,69);")
+cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,70);")
+cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,50);")
+cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,71);")
+cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,72);")
+cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,3);")
+cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,73);")
+cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,74);")
+cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,75);")
+cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,65);")
+cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,76);")
+cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,77);")
+cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,78);")
+cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,79);")
 
 
 cast_data = [
@@ -309,7 +347,7 @@ cast_data = [
 ]
 
 for act in cast_data:
-    cur.execute("INSERT INTO Cast (movie_id ,actor_id, is_star, role) VALUES (?,?,?,?);", act)
+    cur.execute("INSERT INTO MovieCast (movie_id ,actor_id, is_star, role) VALUES (?,?,?,?);", act)
 
 producing_credits = [
     (1, 1),
