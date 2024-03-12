@@ -30,12 +30,40 @@
 
       window.addEventListener("load", function () {
         createDropdowns();
+
+        document
+          .getElementById("movieDropdown1")
+          .addEventListener("change", function () {
+            var selectedIndex =
+              document.getElementById("movieDropdown1").selectedIndex;
+
+            // Get the selected option using the selectedIndex
+            var selectedOption =
+              document.getElementById("movieDropdown1").options[selectedIndex];
+            console.log(selectedOption);
+          });
+
+        document
+          .getElementById("movieDropdown2")
+          .addEventListener("change", function () {
+            var selectedIndex =
+              document.getElementById("movieDropdown2").selectedIndex;
+
+            // Get the selected option using the selectedIndex
+            var selectedOption =
+              document.getElementById("movieDropdown2").options[selectedIndex];
+            console.log(selectedOption);
+          });
       });
     </script>
 
     <label for="movie1">Pick a movie:</label>
     <select name="movie1" id="movieDropdown1"></select>
+    <div class="movieDisplay1">
+      <h1 movie></h1>
+    </div>
     <label for="movie2">Pick another movie:</label>
     <select name="movie2" id="movieDropdown2"></select>
+    <div class="movieDisplay2"></div>
   </body>
 </html>
