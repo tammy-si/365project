@@ -17,7 +17,7 @@ conn.commit()
 
 
 cur.execute('''CREATE TABLE Actor (
-	actor_id INTEGER NOT NULL,
+    actor_id INTEGER NOT NULL,
     roles_played INT,
     acting_awards INT,
     person_id INT,
@@ -28,7 +28,7 @@ cur.execute('''CREATE TABLE Actor (
 conn.commit()
 
 cur.execute('''CREATE TABLE Director (
-	director_id INTEGER NOT NULL,
+    director_id INTEGER NOT NULL,
     movies_directed INT,
     directing_awards INT,
     person_id INT,
@@ -39,7 +39,7 @@ cur.execute('''CREATE TABLE Director (
 conn.commit()
 
 cur.execute('''CREATE TABLE Studio (
-	studio_id INTEGER NOT NULL,
+    studio_id INTEGER NOT NULL,
     studio_name VARCHAR(40),
     PRIMARY KEY (studio_id)
 );''')
@@ -47,7 +47,7 @@ cur.execute('''CREATE TABLE Studio (
 conn.commit()
 
 cur.execute('''CREATE TABLE Producer (
-	producer_id INTEGER NOT NULL,
+    producer_id INTEGER NOT NULL,
     movies_produced INT,
     person_id INT,
     PRIMARY KEY (producer_id)
@@ -57,27 +57,27 @@ conn.commit()
 
 cur.execute('''CREATE TABLE MovieCast (
     movie_id INTEGER NOT NULL,
-	actor_id INTEGER NOT NULL,
+    actor_id INTEGER NOT NULL,
     is_star BIT,
     role VARCHAR(30),
     PRIMARY KEY (movie_id, actor_id),
     FOREIGN KEY (movie_id) REFERENCES Movie(movie_id),
-	FOREIGN KEY (actor_id) REFERENCES Actor(actor_id)
+    FOREIGN KEY (actor_id) REFERENCES Actor(actor_id)
 );''')
 conn.commit()
 
 cur.execute('''
 CREATE TABLE ProducingCredit (
-	movie_id INTEGER NOT NULL,
+    movie_id INTEGER NOT NULL,
     producer_id INTEGER NOT NULL,
     PRIMARY KEY (movie_id, producer_id),
     FOREIGN KEY (movie_id) REFERENCES Movie(movie_id),
-	FOREIGN KEY (producer_id) REFERENCES Producer(producer_id)
+    FOREIGN KEY (producer_id) REFERENCES Producer(producer_id)
 );''')
 conn.commit()
 
 cur.execute('''CREATE TABLE SalesRecord (
-	sales_record_id INTEGER NOT NULL,
+    sales_record_id INTEGER NOT NULL,
     domestic_opening INTEGER,
     worldwide_total INTEGER,
     domestic_total INTEGER,
@@ -88,7 +88,7 @@ conn.commit()
 
 
 cur.execute('''CREATE TABLE Movie (
-	movie_id INTEGER NOT NULL,
+    movie_id INTEGER NOT NULL,
     movie_title VARCHAR(50),
     release_date DATE,
     budget INTEGER,
@@ -98,14 +98,14 @@ cur.execute('''CREATE TABLE Movie (
     PRIMARY KEY (movie_id),
     FOREIGN KEY (director_id) REFERENCES Director(director_id),
     FOREIGN KEY (studio_id) REFERENCES Studio(studio_id),
-	FOREIGN KEY (sales_record_id) REFERENCES SalesRecord(sales_record_id)
+    FOREIGN KEY (sales_record_id) REFERENCES SalesRecord(sales_record_id)
 );''')
 conn.commit()
 
 
 # inserting into SalesRecord
-cur.execute('''INSERT INTO SalesRecord (sales_record_id, domestic_opening, worldwide_total, domestic_total, foreign_total)
-VALUES
+cur.execute('''INSERT INTO SalesRecord (sales_record_id, domestic_opening, worldwide_total,
+domestic_total, foreign_total) VALUES
 (1, 162022044, 1445638421, 636238421, 809400000),
 (2, 146361865, 1361972248, 574934330, 787037918),
 (3, 82455420, 957775395, 329203395, 628572000),
@@ -161,21 +161,21 @@ conn.commit()
 
 # all studio entries
 studio_data = [
-    ("Warner Bros."),
-    ("Universal Pictures"),
-    ("Walt Disney Studios Motion Pictures"),
-    ("Columbia Pictures"),
-    ("Paramount Pictures"),
-    ("Lionsgate Films"),
-    ("United Artists Releasing"),
-    ("AMC Theaters"),
-    ("Angel Studios"),
-    ("GKIDS"),
-    ("Yash Raj Films USA Inc."),
-    ("Sony Pictures Releasing"),
-    ("Toho International"),
-    ("Searchlight Pictures"),
-    ("Screen Gems")
+    "Warner Bros.",
+    "Universal Pictures",
+    "Walt Disney Studios Motion Pictures",
+    "Columbia Pictures",
+    "Paramount Pictures",
+    "Lionsgate Films",
+    "United Artists Releasing",
+    "AMC Theaters",
+    "Angel Studios",
+    "GKIDS",
+    "Yash Raj Films USA Inc.",
+    "Sony Pictures Releasing",
+    "Toho International",
+    "Searchlight Pictures",
+    "Screen Gems"
 ]
 
 for studio_entry in studio_data:
@@ -249,9 +249,9 @@ actor_data = [
     ('Ryan', 'Gosling', 43, 'M'),
     ('Issa', 'Rae', 39, 'F'),
     ('Kate', 'McKinnon', 40, 'F'),
-    #mario
+    # mario
     ('Chris', 'Pratt', 44, "M"),
-    ('Anya','Taylor-Joy', 27, 'F'),
+    ('Anya', 'Taylor-Joy', 27, 'F'),
     ('Charlie', 'Day', 48, 'M'),
     ('Jack', 'Black', 54, 'M'),
     # oppenheimer
@@ -281,7 +281,7 @@ for i in range(1, len(actor_data) + 1):
 
 
 producer_data = [
-    ('Robbie', 'Brenner', None ,'M'),
+    ('Robbie', 'Brenner', None, 'M'),
     ('David', 'Heyman', None, 'M'),
     # ('Margot', 'Robbie', 33, 'F'),
     ('Christopher', 'Meledandri', 64, 'M'),
@@ -424,7 +424,8 @@ movie_data = [
 ]
 
 for movie in movie_data:
-    cur.execute("INSERT INTO Movie (movie_title, release_date, budget, director_id, studio_id, sales_record_id) VALUES (?,?,?,?,?,?);", movie)
+    cur.execute("INSERT INTO Movie (movie_title, release_date, budget, director_id, studio_id, sales_record_id) "
+                "VALUES (?,?,?,?,?,?);", movie)
 
 conn.commit()
 conn.close()

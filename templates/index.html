@@ -1,0 +1,35 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+	<head>
+		<title>Flask and SQLite </title>
+	</head>
+	<style> 
+		table, th, td { 
+		border:1px solid black; 
+		} 
+		</style> 
+	<body> 
+		<table style="width:100%"> 
+			<tr> 
+			<th>Movie_ID</th>
+			<th>Title</th>
+			<th>Release Date</th>
+			<th>Budget</th>
+			<th>Director_ID</th>
+			<th>Studio_ID</th>
+			<th>Sales_ID</th>
+			</tr> 
+			{%for film in data%} 
+			<tr> 
+				<td>{{film[0]}}</td>
+				<td>{{film[1]}}</td>
+				<td>{{film[2]}}</td>
+				<td>{{film[3]}}</td>
+				<td>{{film[4]}}</td>
+				<td>{{film[5]}}</td>
+				<td>{{film[6]}}</td>
+				</tr> 
+			{%endfor%} 
+		</table>		 
+	</body> 
+</html> 
