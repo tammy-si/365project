@@ -2,14 +2,13 @@
 <html lang="en">
   <head>
     <title>Flask and SQLite</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styles/styles.css') }}"
+    />
   </head>
-  <style>
-    table,
-    th,
-    td {
-      border: 1px solid black;
-    }
-  </style>
+
   <body>
     <script>
       var data = JSON.parse(`{{ data | tojson }}`);
@@ -356,11 +355,12 @@
           });
       });
     </script>
-
-    <label for="movie1">Pick a movie:</label>
-    <select name="movie1" id="movieDropdown1">
-      <option value=""></option>
-    </select>
+    <div class="movieSelect1">
+      <label for="movie1">Pick a movie:</label>
+      <select name="movie1" id="movieDropdown1">
+        <option value=""></option>
+      </select>
+    </div>
     <div class="movieDisplay1">
       <h1 class="movie_title">Movie Title:</h1>
       <h2 class="movie_release">Release Date:</h2>
@@ -375,10 +375,12 @@
         <h3 class="foreign_total">Foreign Total:</h3>
       </div>
     </div>
-    <label for="movie2">Pick another movie:</label>
-    <select name="movie2" id="movieDropdown2">
-      <option value=""></option>
-    </select>
+    <div class="movieSelect2">
+      <label for="movie2">Pick another movie:</label>
+      <select name="movie2" id="movieDropdown2">
+        <option value=""></option>
+      </select>
+    </div>
     <div class="movieDisplay2">
       <h1 class="movie_title">Movie Title:</h1>
       <h2 class="movie_release">Release Date:</h2>

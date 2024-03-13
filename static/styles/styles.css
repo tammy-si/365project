@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr 9fr;
+}
+
+.movieSelect1 {
+  grid-column: 1/ 2;
+}
+
+.movieDisplay1 {
+  grid-column: 1/ 2;
+}
+
+.movieSelect2 {
+  grid-column: 2/ 3;
+  grid-row: 1 /2;
+}
+
+.movieDisplay2 {
+  grid-column: 2 / 3;
+}
