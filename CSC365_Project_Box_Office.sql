@@ -430,12 +430,30 @@ INSERT INTO ProducingCredit VALUES
 (5, 113);
 
 -- test queries
-SELECT * FROM Actor;
-SELECT * FROM Director;
-SELECT * FROM Movie;
-SELECT * FROM MovieCast;
-SELECT * FROM People;
-SELECT * FROM Producer;
-SELECT * FROM ProducingCredit;
-SELECT * FROM SalesRecord;
-SELECT * FROM Studio;
+
+-- Movie names and net gain
+SELECT movie_title, worldwide_total - budget AS Profit
+FROM Movie
+JOIN SalesRecord
+ON Movie.sales_record_id = SalesRecord.sales_record_id
+ORDER BY Profit desc;
+
+-- People who are both actors and directors
+SELECT * FROM People
+WHERE People.person_id IN (SELECT person_id FROM Director)
+	AND People.person_id IN (SELECT person_id FROM Actor)
+ORDER BY lname, fname;
+
+-- Average income
+SELECT AVG(worldwide_total) as "Average Grossing"
+FROM SalesRecord;
+
+-- Average movies directed for a director
+SELECT AVG(movies_directed) as "Average Movies Per Director"
+FROM Director;
+
+-- Average credited roles in a movie
+SELECT AVG(actors) as "Average Actors Per Movie"
+FROM (SELECT COUNT(actor_id) as actors
+	FROM MovieCast
+    GROUP BY movie_id) a;
