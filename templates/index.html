@@ -50,30 +50,140 @@
 
             console.log(result);
             if (!result) {
-              /* clear */
+              /* clear stuff */
+              document.querySelector(".movieDisplay1 .movie_title").innerHTML =
+                "Movie Title:";
+              document.querySelector(
+                ".movieDisplay1 .movie_release"
+              ).innerHTML = "Release Date:";
+              document.querySelector(".movieDisplay1 .studio").innerHTML =
+                "Studio:";
+              document.querySelector(".movieDisplay1 .director").innerHTML =
+                "Director:";
+              document.querySelector(".movieDisplay1 .actors").innerHTML =
+                "Actors:";
+              document.querySelector(".movieDisplay1 .producers").innerHTML =
+                "Producers:";
+              document.querySelector(
+                ".movieDisplay1 .domestic_opening"
+              ).innerHTML = "Domestic Opening Weekend:";
+              document.querySelector(".movieDisplay1 .worldwide").innerHTML =
+                "Worldwide Total:";
+              document.querySelector(
+                ".movieDisplay1 .domestic_total"
+              ).innerHTML = "Domestic Total:";
+              document.querySelector(
+                ".movieDisplay1 .foreign_total"
+              ).innerHTML = "Foreign Total:";
             } else {
               director_id = result["director_id"];
               studio_id = result["studio_id"];
               sales_record_id = result["sales_record_id"];
 
               try {
+                document.querySelector(
+                  ".movieDisplay1 .movie_title"
+                ).innerHTML = `Movie Title: ${result["movie_title"]}`;
+
+                document.querySelector(
+                  ".movieDisplay1 .movie_release"
+                ).innerHTML = `Release Date: ${result["release_date"]}`;
+
                 /* get director data */
                 const director_response = await fetch(
                   `/director/${director_id}`
                 );
+
                 const director_data = await director_response.json();
+
+                document.querySelector(
+                  ".movieDisplay1 .director"
+                ).innerHTML = `Director: ${
+                  director_data[5] + " " + director_data[6]
+                }`;
                 console.log(director_data);
 
                 /* get studio data */
                 const studio_response = await fetch(`/studio/${studio_id}`);
                 const studio_data = await studio_response.json();
                 console.log(studio_data);
+                document.querySelector(
+                  ".movieDisplay1 .studio"
+                ).innerHTML = `Studio: ${studio_data[1]}`;
 
                 /* get sales record_data */
-
+                const sales_response = await fetch(`/sales/${sales_record_id}`);
+                const sales_data = await sales_response.json();
+                console.log(sales_data);
+                document.querySelector(
+                  ".movieDisplay1 .domestic_opening"
+                ).innerHTML = `Domestic Opening Weekend: $${sales_data[1]}`;
+                document.querySelector(
+                  ".movieDisplay1 .worldwide"
+                ).innerHTML = `Worldwide Total: $${sales_data[2]}`;
+                document.querySelector(
+                  ".movieDisplay1 .domestic_total"
+                ).innerHTML = `Domestic Total: $${sales_data[3]}`;
+                document.querySelector(
+                  ".movieDisplay1 .foreign_total"
+                ).innerHTML = `Foreign Total: $${sales_data[4]}`;
                 /* get data about actors */
-
+                const actor_response = await fetch(`/actors/${movie_id1}`);
+                const actor_data = await actor_response.json();
+                console.log(actor_data);
+                let actor_string = "Actors: ";
+                for (let i = 0; i < actor_data.length; i++) {
+                  if (i == 0) {
+                    actor_string = actor_string.concat(
+                      "",
+                      `${
+                        actor_data[i][9] +
+                        " " +
+                        actor_data[i][10] +
+                        " (" +
+                        actor_data[i][3] +
+                        ")"
+                      }`
+                    );
+                  } else {
+                    actor_string = actor_string.concat(
+                      ", ",
+                      `${
+                        actor_data[i][9] +
+                        " " +
+                        actor_data[i][10] +
+                        " (" +
+                        actor_data[i][3] +
+                        ")"
+                      }`
+                    );
+                  }
+                }
+                document.querySelector(".movieDisplay1 .actors").innerHTML =
+                  actor_string;
                 /* get data about producers */
+                const producer_response = await fetch(
+                  `/producers/${movie_id1}`
+                );
+                const producer_data = await producer_response.json();
+                console.log(producer_data);
+                let producer_string = "Producers: ";
+                for (let i = 0; i < producer_data.length; i++) {
+                  if (i == 0) {
+                    producer_string = producer_string.concat(
+                      "",
+                      `${producer_data[i][6] + " " + producer_data[i][7]}`
+                    );
+                  } else {
+                    producer_string = producer_string.concat(
+                      ", ",
+                      `${producer_data[i][6] + " " + producer_data[i][7]}`
+                    );
+                  }
+                  document.querySelector(
+                    ".movieDisplay1 .producers"
+                  ).innerHTML = producer_string;
+                }
               } catch (error) {
                 console.error(
                   "There was a problem with the fetch operation:",
@@ -86,7 +196,7 @@
 
         document
           .getElementById("movieDropdown2")
-          .addEventListener("change", function () {
+          .addEventListener("change", async function () {
             var selectedIndex =
               document.getElementById("movieDropdown2").selectedIndex;
 
@@ -94,7 +204,155 @@
             var selectedOption =
               document.getElementById("movieDropdown2").options[selectedIndex];
             console.log(selectedOption);
-            let movie_id2 = selectedOption.value;
+            let movie_id2 = Number(selectedOption.value);
+            // get that specific movies data
+            var result = data.find((obj) => {
+              return obj.movie_id === movie_id2;
+            });
+            console.log(result);
+            if (!result) {
+              /* clear stuff */
+              document.querySelector(".movieDisplay2 .movie_title").innerHTML =
+                "Movie Title:";
+              document.querySelector(
+                ".movieDisplay1 .movie_release"
+              ).innerHTML = "Release Date:";
+              document.querySelector(".movieDisplay2 .studio").innerHTML =
+                "Studio:";
+              document.querySelector(".movieDisplay2 .director").innerHTML =
+                "Director:";
+              document.querySelector(".movieDisplay2 .actors").innerHTML =
+                "Actors:";
+              document.querySelector(".movieDisplay2 .producers").innerHTML =
+                "Producers:";
+              document.querySelector(
+                ".movieDisplay2 .domestic_opening"
+              ).innerHTML = "Domestic Opening Weekend:";
+              document.querySelector(".movieDisplay2 .worldwide").innerHTML =
+                "Worldwide Total:";
+              document.querySelector(
+                ".movieDisplay2 .domestic_total"
+              ).innerHTML = "Domestic Total:";
+              document.querySelector(
+                ".movieDisplay2 .foreign_total"
+              ).innerHTML = "Foreign Total:";
+            } else {
+              director_id = result["director_id"];
+              studio_id = result["studio_id"];
+              sales_record_id = result["sales_record_id"];
+
+              try {
+                document.querySelector(
+                  ".movieDisplay2 .movie_title"
+                ).innerHTML = `Movie Title: ${result["movie_title"]}`;
+
+                document.querySelector(
+                  ".movieDisplay2 .movie_release"
+                ).innerHTML = `Release Date: ${result["release_date"]}`;
+
+                /* get director data */
+                const director_response = await fetch(
+                  `/director/${director_id}`
+                );
+
+                const director_data = await director_response.json();
+
+                document.querySelector(
+                  ".movieDisplay2 .director"
+                ).innerHTML = `Director: ${
+                  director_data[5] + " " + director_data[6]
+                }`;
+                console.log(director_data);
+
+                /* get studio data */
+                const studio_response = await fetch(`/studio/${studio_id}`);
+                const studio_data = await studio_response.json();
+                console.log(studio_data);
+                document.querySelector(
+                  ".movieDisplay2 .studio"
+                ).innerHTML = `Studio: ${studio_data[1]}`;
+
+                /* get sales record_data */
+                const sales_response = await fetch(`/sales/${sales_record_id}`);
+                const sales_data = await sales_response.json();
+                console.log(sales_data);
+                document.querySelector(
+                  ".movieDisplay2 .domestic_opening"
+                ).innerHTML = `Domestic Opening Weekend: $${sales_data[1]}`;
+                document.querySelector(
+                  ".movieDisplay2 .worldwide"
+                ).innerHTML = `Worldwide Total: $${sales_data[2]}`;
+                document.querySelector(
+                  ".movieDisplay2 .domestic_total"
+                ).innerHTML = `Domestic Total: $${sales_data[3]}`;
+                document.querySelector(
+                  ".movieDisplay2 .foreign_total"
+                ).innerHTML = `Foreign Total: $${sales_data[4]}`;
+                /* get data about actors */
+                const actor_response = await fetch(`/actors/${movie_id2}`);
+                const actor_data = await actor_response.json();
+                console.log(actor_data);
+                let actor_string = "Actors: ";
+                for (let i = 0; i < actor_data.length; i++) {
+                  if (i == 0) {
+                    actor_string = actor_string.concat(
+                      "",
+                      `${
+                        actor_data[i][9] +
+                        " " +
+                        actor_data[i][10] +
+                        " (" +
+                        actor_data[i][3] +
+                        ")"
+                      }`
+                    );
+                  } else {
+                    actor_string = actor_string.concat(
+                      ", ",
+                      `${
+                        actor_data[i][9] +
+                        " " +
+                        actor_data[i][10] +
+                        " (" +
+                        actor_data[i][3] +
+                        ")"
+                      }`
+                    );
+                  }
+                }
+                document.querySelector(".movieDisplay2 .actors").innerHTML =
+                  actor_string;
+                /* get data about producers */
+                const producer_response = await fetch(
+                  `/producers/${movie_id2}`
+                );
+                const producer_data = await producer_response.json();
+                console.log(producer_data);
+                let producer_string = "Producers: ";
+                for (let i = 0; i < producer_data.length; i++) {
+                  if (i == 0) {
+                    producer_string = producer_string.concat(
+                      "",
+                      `${producer_data[i][6] + " " + producer_data[i][7]}`
+                    );
+                  } else {
+                    producer_string = producer_string.concat(
+                      ", ",
+                      `${producer_data[i][6] + " " + producer_data[i][7]}`
+                    );
+                  }
+                  document.querySelector(
+                    ".movieDisplay2 .producers"
+                  ).innerHTML = producer_string;
+                }
+              } catch (error) {
+                console.error(
+                  "There was a problem with the fetch operation:",
+                  error
+                );
+                return null;
+              }
+            }
           });
       });
     </script>
@@ -104,16 +362,36 @@
       <option value=""></option>
     </select>
     <div class="movieDisplay1">
-      <h1 class="movie_title"></h1>
-      <h2 class="movie_release"></h2>
+      <h1 class="movie_title">Movie Title:</h1>
+      <h2 class="movie_release">Release Date:</h2>
+      <h2 class="studio">Studio:</h2>
+      <h2 class="director">Director:</h2>
+      <h2 class="actors">Actors:</h2>
+      <h2 class="producers">Producers:</h2>
+      <div class="sales">
+        <h3 class="domestic_opening">Domestic Opening Weekend:</h3>
+        <h3 class="worldwide">Worldwide Total:</h3>
+        <h3 class="domestic_total">Domestic Total:</h3>
+        <h3 class="foreign_total">Foreign Total:</h3>
+      </div>
     </div>
     <label for="movie2">Pick another movie:</label>
     <select name="movie2" id="movieDropdown2">
       <option value=""></option>
     </select>
     <div class="movieDisplay2">
-      <h1 class="movie_title"></h1>
-      <h2 class="movie_release"></h2>
+      <h1 class="movie_title">Movie Title:</h1>
+      <h2 class="movie_release">Release Date:</h2>
+      <h2 class="studio">Studio:</h2>
+      <h2 class="director">Director:</h2>
+      <h2 class="actors">Actors:</h2>
+      <h2 class="producers">Producers:</h2>
+      <div class="sales">
+        <h3 class="domestic_opening">Domestic Opening Weekend:</h3>
+        <h3 class="worldwide">Worldwide Total:</h3>
+        <h3 class="domestic_total">Domestic Total:</h3>
+        <h3 class="foreign_total">Foreign Total:</h3>
+      </div>
     </div>
   </body>
 </html>

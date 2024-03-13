@@ -275,9 +275,9 @@ for actor in actor_data:
 
 for i in range(1, len(actor_data) + 1):
     if i == 5:
-        cur.execute("INSERT INTO Actor (roles_played, acting_awards, person_id) VALUES (?,?,?);", (2, 0, 49 + i))
+        cur.execute("INSERT INTO Actor (roles_played, acting_awards, person_id) VALUES (?,?,?);", (2, 0, 50 + i))
     else:
-        cur.execute("INSERT INTO Actor (roles_played, acting_awards, person_id) VALUES (?,?,?);", (1, 0, 49 + i))
+        cur.execute("INSERT INTO Actor (roles_played, acting_awards, person_id) VALUES (?,?,?);", (1, 0, 50 + i))
 
 
 producer_data = [
@@ -306,14 +306,14 @@ for producer in producer_data:
 # putting Producer stuff
 cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,69);")
 cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,70);")
-cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,50);")
+cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,51);")
 cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,71);")
 cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,72);")
 cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,3);")
 cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,73);")
 cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,74);")
 cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,75);")
-cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,65);")
+cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,66);")
 cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,76);")
 cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,77);")
 cur.execute("INSERT INTO Producer (movies_produced, person_id) VALUES (1,78);")
