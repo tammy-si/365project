@@ -66,8 +66,7 @@ cur.execute('''CREATE TABLE MovieCast (
 );''')
 conn.commit()
 
-cur.execute('''
-CREATE TABLE ProducingCredit (
+cur.execute('''CREATE TABLE ProducingCredit (
     movie_id INTEGER NOT NULL,
     producer_id INTEGER NOT NULL,
     PRIMARY KEY (movie_id, producer_id),
@@ -161,21 +160,21 @@ conn.commit()
 
 # all studio entries
 studio_data = [
-    "Warner Bros.",
-    "Universal Pictures",
-    "Walt Disney Studios Motion Pictures",
-    "Columbia Pictures",
-    "Paramount Pictures",
-    "Lionsgate Films",
-    "United Artists Releasing",
-    "AMC Theaters",
-    "Angel Studios",
-    "GKIDS",
-    "Yash Raj Films USA Inc.",
-    "Sony Pictures Releasing",
-    "Toho International",
-    "Searchlight Pictures",
-    "Screen Gems"
+        "Warner Bros.",
+        "Universal Pictures",
+        "Walt Disney Studios Motion Pictures",
+        "Columbia Pictures",
+        "Paramount Pictures",
+        "Lionsgate Films",
+        "United Artists Releasing",
+        "AMC Theaters",
+        "Angel Studios",
+        "GKIDS",
+        "Yash Raj Films USA Inc.",
+        "Sony Pictures Releasing",
+        "Toho International",
+        "Searchlight Pictures",
+        "Screen Gems"
 ]
 
 for studio_entry in studio_data:
