@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import sqlite3
 
 app = Flask(__name__)
@@ -12,13 +12,62 @@ def index():
     cursor.execute('SELECT * FROM Movie')
 
     data = cursor.fetchall()
-    return render_template('index.html', data=data)
+    res_data = []
+    for value in data:
+        new_movie = {
+            "movie_id": value[0],
+            "movie_title": value[1],
+            "release_date": value[2],
+            "budget": value[3],
+            "director_id": value[4],
+            "studio_id": value[5],
+            "sales_record_id": value[6]
+        }
+        res_data.append(new_movie)
+    return render_template('index.html', data=res_data)
 
 
-@app.route('/drop')
-def drop():
-    return render_template('drop.html')
 
+@app.route('/director/<int:director_id>', methods=['GET'])
+def getDirector(director_id):
+    connect = sqlite3.connect('boxoffice.db')
+    cursor = connect.cursor()
+    # get director info by movie_id
+    print(director_id)
+    cursor.execute('''SELECT * FROM Director 
+                   JOIN People
+                   ON Director.person_id = People.person_id
+                   WHERE director_id = ?''',  (director_id,))
+    data = cursor.fetchone()
+    
+    connect.close()
+    # Check if data exists
+    if data:
+        # Convert data to JSON format and return as response
+        return jsonify(data)
+    else:
+        # Return error response if director not found
+        return jsonify({"error": "Director not found"}), 404
+
+
+
+@app.route('/studio/<int:studio_id>', methods=['GET'])
+def getStudio(studio_id):
+    connect = sqlite3.connect('boxoffice.db')
+    cursor = connect.cursor()
+    # get director info by movie_id
+    cursor.execute('''SELECT * FROM Studio 
+                   WHERE studio_id = ?''',  (studio_id,))
+    data = cursor.fetchone()
+    
+    connect.close()
+    # Check if data exists
+    if data:
+        # Convert data to JSON format and return as response
+        return jsonify(data)
+    else:
+        # Return error response if Studio not found
+        return jsonify({"error": "Studio not found"}), 404
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -18,11 +18,11 @@
       function createDropdowns() {
         for (let i = 0; i < 50; i++) {
           var option = document.createElement("option");
-          option.value = data[i][0];
-          option.innerHTML = data[i][1];
+          option.value = data[i]["movie_id"];
+          option.innerHTML = data[i]["movie_title"];
           var option2 = document.createElement("option");
-          option2.value = data[i][0];
-          option2.innerHTML = data[i][1];
+          option2.value = data[i]["movie_id"];
+          option2.innerHTML = data[i]["movie_title"];
           document.getElementById("movieDropdown1").appendChild(option);
           document.getElementById("movieDropdown2").appendChild(option2);
         }
@@ -33,7 +33,7 @@
 
         document
           .getElementById("movieDropdown1")
-          .addEventListener("change", function () {
+          .addEventListener("change", async function () {
             var selectedIndex =
               document.getElementById("movieDropdown1").selectedIndex;
 
@@ -41,6 +41,47 @@
             var selectedOption =
               document.getElementById("movieDropdown1").options[selectedIndex];
             console.log(selectedOption);
+            let movie_id1 = Number(selectedOption.value);
+
+            // get that specific movies data
+            var result = data.find((obj) => {
+              return obj.movie_id === movie_id1;
+            });
+
+            console.log(result);
+            if (!result) {
+              /* clear */
+            } else {
+              director_id = result["director_id"];
+              studio_id = result["studio_id"];
+              sales_record_id = result["sales_record_id"];
+
+              try {
+                /* get director data */
+                const director_response = await fetch(
+                  `/director/${director_id}`
+                );
+                const director_data = await director_response.json();
+                console.log(director_data);
+
+                /* get studio data */
+                const studio_response = await fetch(`/studio/${studio_id}`);
+                const studio_data = await studio_response.json();
+                console.log(studio_data);
+
+                /* get sales record_data */
+
+                /* get data about actors */
+
+                /* get data about producers */
+              } catch (error) {
+                console.error(
+                  "There was a problem with the fetch operation:",
+                  error
+                );
+                return null;
+              }
+            }
           });
 
         document
@@ -53,17 +94,26 @@
             var selectedOption =
               document.getElementById("movieDropdown2").options[selectedIndex];
             console.log(selectedOption);
+            let movie_id2 = selectedOption.value;
           });
       });
     </script>
 
     <label for="movie1">Pick a movie:</label>
-    <select name="movie1" id="movieDropdown1"></select>
+    <select name="movie1" id="movieDropdown1">
+      <option value=""></option>
+    </select>
     <div class="movieDisplay1">
-      <h1 movie></h1>
+      <h1 class="movie_title"></h1>
+      <h2 class="movie_release"></h2>
     </div>
     <label for="movie2">Pick another movie:</label>
-    <select name="movie2" id="movieDropdown2"></select>
-    <div class="movieDisplay2"></div>
+    <select name="movie2" id="movieDropdown2">
+      <option value=""></option>
+    </select>
+    <div class="movieDisplay2">
+      <h1 class="movie_title"></h1>
+      <h2 class="movie_release"></h2>
+    </div>
   </body>
 </html>
