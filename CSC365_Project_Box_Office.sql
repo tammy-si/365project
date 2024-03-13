@@ -428,3 +428,14 @@ INSERT INTO ProducingCredit VALUES
 (5, 111),
 (5, 112),
 (5, 113);
+
+-- test queries
+SELECT * FROM Actor;
+SELECT * FROM Director;
+SELECT * FROM Movie;
+SELECT * FROM MovieCast;
+SELECT * FROM People;
+SELECT * FROM Producer;
+SELECT * FROM ProducingCredit;
+SELECT * FROM SalesRecord;
+SELECT * FROM Studio;
