@@ -140,12 +140,22 @@ def add_movie():
         budget = request.form['budget']
         studio_id = request.form['studio_id']
         director_id = request.form['director_id']
+        domopening = request.form['dom_opening']
+        wwtotal = request.form['wwtotal']
+        domtotal = request.form['domtotal']
+        foreigntotal = request.form['foreigntotal']
+
         # now insert the data in movies
         connect = sqlite3.connect('boxoffice.db')
         cursor = connect.cursor()
 
+        cur_object = cursor.execute('''INSERT INTO SalesRecord (domestic_opening, worldwide_total,
+domestic_total, foreign_total) VALUES
+(?, ?, ?, ?);''', (domopening, wwtotal, domtotal, foreigntotal))
+        newSalesId = cur_object.lastrowid
         cursor.execute("INSERT INTO Movie (movie_title, release_date, budget, director_id, studio_id, sales_record_id) "
-                "VALUES (?,?,?,?,?,?);", (title, release_date, int(budget), int(studio_id), int(director_id), None))
+                "VALUES (?,?,?,?,?,?);", (title, release_date, int(budget), int(studio_id), int(director_id), newSalesId))
+    
         connect.commit()
         return redirect("/")
     

@@ -47,34 +47,29 @@
               return obj.movie_id === movie_id1;
             });
 
-            console.log(result);
-            if (!result) {
-              /* clear stuff */
-              document.querySelector(".movieDisplay1 .movie_title").innerHTML =
-                "Movie Title:";
-              document.querySelector(
-                ".movieDisplay1 .movie_release"
-              ).innerHTML = "Release Date:";
-              document.querySelector(".movieDisplay1 .studio").innerHTML =
-                "Studio:";
-              document.querySelector(".movieDisplay1 .director").innerHTML =
-                "Director:";
-              document.querySelector(".movieDisplay1 .actors").innerHTML =
-                "Actors:";
-              document.querySelector(".movieDisplay1 .producers").innerHTML =
-                "Producers:";
-              document.querySelector(
-                ".movieDisplay1 .domestic_opening"
-              ).innerHTML = "Domestic Opening Weekend:";
-              document.querySelector(".movieDisplay1 .worldwide").innerHTML =
-                "Worldwide Total:";
-              document.querySelector(
-                ".movieDisplay1 .domestic_total"
-              ).innerHTML = "Domestic Total:";
-              document.querySelector(
-                ".movieDisplay1 .foreign_total"
-              ).innerHTML = "Foreign Total:";
-            } else {
+            /* clear stuff */
+            document.querySelector(".movieDisplay1 .movie_title").innerHTML =
+              "Movie Title:";
+            document.querySelector(".movieDisplay1 .movie_release").innerHTML =
+              "Release Date:";
+            document.querySelector(".movieDisplay1 .studio").innerHTML =
+              "Studio:";
+            document.querySelector(".movieDisplay1 .director").innerHTML =
+              "Director:";
+            document.querySelector(".movieDisplay1 .actors").innerHTML =
+              "Actors:";
+            document.querySelector(".movieDisplay1 .producers").innerHTML =
+              "Producers:";
+            document.querySelector(
+              ".movieDisplay1 .domestic_opening"
+            ).innerHTML = "Domestic Opening Weekend:";
+            document.querySelector(".movieDisplay1 .worldwide").innerHTML =
+              "Worldwide Total:";
+            document.querySelector(".movieDisplay1 .domestic_total").innerHTML =
+              "Domestic Total:";
+            document.querySelector(".movieDisplay1 .foreign_total").innerHTML =
+              "Foreign Total:";
+            if (result) {
               director_id = result["director_id"];
               studio_id = result["studio_id"];
               sales_record_id = result["sales_record_id"];
@@ -208,34 +203,30 @@
             var result = data.find((obj) => {
               return obj.movie_id === movie_id2;
             });
-            console.log(result);
-            if (!result) {
-              /* clear stuff */
-              document.querySelector(".movieDisplay2 .movie_title").innerHTML =
-                "Movie Title:";
-              document.querySelector(
-                ".movieDisplay1 .movie_release"
-              ).innerHTML = "Release Date:";
-              document.querySelector(".movieDisplay2 .studio").innerHTML =
-                "Studio:";
-              document.querySelector(".movieDisplay2 .director").innerHTML =
-                "Director:";
-              document.querySelector(".movieDisplay2 .actors").innerHTML =
-                "Actors:";
-              document.querySelector(".movieDisplay2 .producers").innerHTML =
-                "Producers:";
-              document.querySelector(
-                ".movieDisplay2 .domestic_opening"
-              ).innerHTML = "Domestic Opening Weekend:";
-              document.querySelector(".movieDisplay2 .worldwide").innerHTML =
-                "Worldwide Total:";
-              document.querySelector(
-                ".movieDisplay2 .domestic_total"
-              ).innerHTML = "Domestic Total:";
-              document.querySelector(
-                ".movieDisplay2 .foreign_total"
-              ).innerHTML = "Foreign Total:";
-            } else {
+
+            /* clear stuff */
+            document.querySelector(".movieDisplay2 .movie_title").innerHTML =
+              "Movie Title:";
+            document.querySelector(".movieDisplay1 .movie_release").innerHTML =
+              "Release Date:";
+            document.querySelector(".movieDisplay2 .studio").innerHTML =
+              "Studio:";
+            document.querySelector(".movieDisplay2 .director").innerHTML =
+              "Director:";
+            document.querySelector(".movieDisplay2 .actors").innerHTML =
+              "Actors:";
+            document.querySelector(".movieDisplay2 .producers").innerHTML =
+              "Producers:";
+            document.querySelector(
+              ".movieDisplay2 .domestic_opening"
+            ).innerHTML = "Domestic Opening Weekend:";
+            document.querySelector(".movieDisplay2 .worldwide").innerHTML =
+              "Worldwide Total:";
+            document.querySelector(".movieDisplay2 .domestic_total").innerHTML =
+              "Domestic Total:";
+            document.querySelector(".movieDisplay2 .foreign_total").innerHTML =
+              "Foreign Total:";
+            if (result) {
               director_id = result["director_id"];
               studio_id = result["studio_id"];
               sales_record_id = result["sales_record_id"];
@@ -355,20 +346,6 @@
           });
       });
     </script>
-    <form action="/add_movie" method="POST">
-      <h1>Add a movie</h1>
-      <label for="title">Movie Title:</label><br />
-      <input type="text" id="title" name="title" /><br />
-      <label for="date">Release Date:</label><br />
-      <input type="text" id="date" name="date" /><br />
-      <label for="budget">Budget:</label><br />
-      <input type="text" id="budget" name="budget" /><br />
-      <label for="studio">Studio Id:</label><br />
-      <input type="text" id="studio" name="studio_id" /><br />
-      <label for="director">Director Id:</label><br />
-      <input type="text" id="director" name="director_id" /><br />
-      <input type="submit" value="Submit" />
-    </form>
     <div class="movieSelect1">
       <label for="movie1">Pick a movie:</label>
       <select name="movie1" id="movieDropdown1">
@@ -409,5 +386,27 @@
         <h3 class="foreign_total">Foreign Total:</h3>
       </div>
     </div>
+    <form action="/add_movie" method="POST">
+      <h1>Add a movie</h1>
+      <label for="title">Movie Title:</label><br />
+      <input type="text" id="title" name="title" /><br />
+      <label for="date">Release Date:</label><br />
+      <input type="text" id="date" name="date" /><br />
+      <label for="budget">Budget:</label><br />
+      <input type="text" id="budget" name="budget" /><br />
+      <label for="studio">Studio Id:</label><br />
+      <input type="text" id="studio" name="studio_id" /><br />
+      <label for="director">Director Id:</label><br />
+      <input type="text" id="director" name="director_id" /><br />
+      <label for="dom_opening">Domestic Opening Weekend:</label><br />
+      <input type="text" id="dom_opening" name="dom_opening" /><br />
+      <label for="wwtotal">Worldwide Total:</label><br />
+      <input type="text" id="wwtotal" name="wwtotal" /><br />
+      <label for="domtotal">Domestic Total:</label><br />
+      <input type="text" id="domtotal" name="domtotal" /><br />
+      <label for="foreigntotal">Foreign Total:</label><br />
+      <input type="text" id="foreigntotal" name="foreigntotal" /><br />
+      <input type="submit" value="Submit" />
+    </form>
   </body>
 </html>
