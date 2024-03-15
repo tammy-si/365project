@@ -327,7 +327,7 @@ INSERT INTO People(fname, lname, age, sex) VALUES
 INSERT INTO Producer(movies_produced, person_id) VALUES
 (7, 169),
 (17, 170),
-(19, 171),
+(19, 150),
 (10, 172),
 (9, 173),
 (15, 174),
@@ -438,11 +438,14 @@ JOIN SalesRecord
 ON Movie.sales_record_id = SalesRecord.sales_record_id
 ORDER BY Profit desc;
 
--- People who are both actors and directors
+-- People who are both actors and producers
 SELECT * FROM People
-WHERE People.person_id IN (SELECT person_id FROM Director)
-	AND People.person_id IN (SELECT person_id FROM Actor)
+WHERE People.person_id IN (SELECT person_id FROM Actor)
+	AND People.person_id IN (SELECT person_id FROM Producer)
 ORDER BY lname, fname;
+
+SELECT person_id FROM Actor;
+SELECT person_id FROM Producer;
 
 -- Average income
 SELECT AVG(worldwide_total) as "Average Grossing"
@@ -457,3 +460,14 @@ SELECT AVG(actors) as "Average Actors Per Movie"
 FROM (SELECT COUNT(actor_id) as actors
 	FROM MovieCast
     GROUP BY movie_id) a;
+    
+-- Producers for Barbie
+SELECT People.fname, People.lname
+FROM Movie
+JOIN ProducingCredit
+ON Movie.movie_id = ProducingCredit.movie_id
+JOIN Producer
+ON ProducingCredit.producer_id = Producer.producer_id
+JOIN People
+ON Producer.person_id = People.person_id
+WHERE movie_title = "Barbie";
