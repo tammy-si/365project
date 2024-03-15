@@ -15,7 +15,7 @@
       console.log(data);
 
       function createDropdowns() {
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < data.length; i++) {
           var option = document.createElement("option");
           option.value = data[i]["movie_id"];
           option.innerHTML = data[i]["movie_title"];
@@ -355,6 +355,20 @@
           });
       });
     </script>
+    <form action="/add_movie" method="POST">
+      <h1>Add a movie</h1>
+      <label for="title">Movie Title:</label><br />
+      <input type="text" id="title" name="title" /><br />
+      <label for="date">Release Date:</label><br />
+      <input type="text" id="date" name="date" /><br />
+      <label for="budget">Budget:</label><br />
+      <input type="text" id="budget" name="budget" /><br />
+      <label for="studio">Studio Id:</label><br />
+      <input type="text" id="studio" name="studio_id" /><br />
+      <label for="director">Director Id:</label><br />
+      <input type="text" id="director" name="director_id" /><br />
+      <input type="submit" value="Submit" />
+    </form>
     <div class="movieSelect1">
       <label for="movie1">Pick a movie:</label>
       <select name="movie1" id="movieDropdown1">

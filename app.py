@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect
 import sqlite3
 
 app = Flask(__name__, static_folder="static")
@@ -130,6 +130,24 @@ def getProducers(movie_id):
     else:
         # Return error response if Producers not found
         return jsonify({"error": "Producers not found"}), 404
+
+# for the adding movie
+@app.route('/add_movie', methods=['POST'])
+def add_movie():
+    if request.method == 'POST':
+        title = request.form['title']
+        release_date = request.form['date']
+        budget = request.form['budget']
+        studio_id = request.form['studio_id']
+        director_id = request.form['director_id']
+        # now insert the data in movies
+        connect = sqlite3.connect('boxoffice.db')
+        cursor = connect.cursor()
+
+        cursor.execute("INSERT INTO Movie (movie_title, release_date, budget, director_id, studio_id, sales_record_id) "
+                "VALUES (?,?,?,?,?,?);", (title, release_date, int(budget), int(studio_id), int(director_id), None))
+        connect.commit()
+        return redirect("/")
     
 if __name__ == '__main__':
     app.run(debug=True)
